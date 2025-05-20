@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HAKDOG HAHHAHA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffb6c1, #ffe4e1);
+            margin: 0;
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        input#flap {
+            display: none;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 80vw;
+            max-width: 320px;
+            height: 50vw;
+            max-height: 200px;
+        }
+
+        .envelope-back {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #ff9999;
+        }
+
+        .envelope-back:before {
+            content: "";
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.07);
+            width: 100%;
+            height: 3vw;
+            max-height: 10px;
+            border-radius: 50%;
+            top: 105%;
+        }
+
+        .card {
+            position: absolute;
+            width: 94%;
+            height: 90%;
+            background-color: #ffe4e1;
+            top: 3%;
+            left: 3%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 6vw;
+            color: #800000;
+            transition: transform 0.1s;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: "♥";
+            color: red;
+            font-size: 8vw;
+            position: absolute;
+            left: 3%;
+            top: 3%;
+        }
+
+        .card::after {
+            content: "♥";
+            color: red;
+            font-size: 8vw;
+            position: absolute;
+            right: 3%;
+            bottom: 3%;
+        }
+
+        .card-front {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-bottom: 25vw solid #ff8080;
+            border-left: 40vw solid transparent;
+            border-right: 40vw solid transparent;
+            top: 50%;
+            left: 0;
+            z-index: 3;
+        }
+
+        .card-front:before,
+        .card-front:after {
+            content: "";
+            position: absolute;
+            border-bottom: 25vw solid transparent;
+            border-top: 25vw solid transparent;
+            height: 0;
+            width: 0;
+        }
+
+        .card-front:before {
+            border-left: 40.5vw solid transparent;
+            border-right: 40.5vw solid #ff9999;
+            top: -25vw;
+            left: -40.5vw;
+        }
+
+        .card-front:after {
+            border-right: 40.5vw solid transparent;
+            border-left: 40.5vw solid #ff9999;
+            top: -25vw;
+            left: -40vw;
+        }
+
+        .flap {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 27.5vw solid #ffc1cc;
+            border-left: 40vw solid transparent;
+            border-right: 40vw solid transparent;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+            transform-origin: top;
+            z-index: 4;
+        }
+
+        #flap:checked + .flap {
+            transform: rotateX(180deg);
+        }
+
+        #flap:checked ~ .card-front {
+            z-index: 7;
+        }
+
+        #flap:checked ~ .card {
+            z-index: 4;
+            transform: translateY(-15vw);
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .heading {
+            font-family: 'Great Vibes', cursive;
+            font-size: 6vw;
+            color: #800000;
+            margin-bottom: 5vw;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 5vw;
+            color: #ff0000;
+            animation: fall linear infinite;
+        }
+
+        .heart:nth-child(2n) {
+            font-size: 6vw;
+            animation-duration: 7s;
+        }
+
+        .heart:nth-child(3n) {
+            font-size: 4vw;
+            animation-duration: 9s;
+        }
+
+        .heart:nth-child(4n) {
+            animation-duration: 6s;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20vh) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(5vw);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sway {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(2vw); }
+            100% { transform: translateX(0); }
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 20%; animation-duration: 6s; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 30%; animation-duration: 9s; animation-delay: 2s; }
+        .heart:nth-child(4) { left: 40%; animation-duration: 7s; animation-delay: 0.5s; }
+        .heart:nth-child(5) { left: 50%; animation-duration: 8s; animation-delay: 1.5s; }
+        .heart:nth-child(6) { left: 60%; animation-duration: 6s; animation-delay: 2.5s; }
+        .heart:nth-child(7) { left: 70%; animation-duration: 9s; animation-delay: 0.2s; }
+        .heart:nth-child(8) { left: 80%; animation-duration: 7s; animation-delay: 1.2s; }
+        .heart:nth-child(9) { left: 90%; animation-duration: 8s; animation-delay: 0.8s; }
+        .heart:nth-child(10) { left: 15%; animation-duration: 6s; animation-delay: 1.8s; }
+
+        @media screen and (max-width: 600px) {
+            .envelope-container {
+                width: 90vw;
+                height: 56.25vw;
+            }
+
+            .card {
+                font-size: 8vw;
+            }
+
+            .heading {
+                font-size: 8vw;
+                margin-bottom: 8vw;
+            }
+
+            .heart {
+                font-size: 6vw;
+            }
+
+            .heart:nth-child(2n) {
+                font-size: 7vw;
+            }
+
+            .heart:nth-child(3n) {
+                font-size: 5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container">
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+    </div>
+    <div class="page-container">
+        <div class="heading">To My HoneySugarPlumPrincess💖🧁😚</div>
+        <div class="envelope-container">
+            <input id="flap" type="checkbox">
+            <label class="flap" for="flap"></label>
+            <div class="envelope-back"></div>
+            <div class="card">Hakdog😘</div>
+            <div class="card-front"></div>
+        </div>
+    </div>
+</body>
+</html>
